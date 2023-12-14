@@ -5,7 +5,7 @@ import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 
 const Table = styled.div`
-  border: 1px solid var(--color-grey-200);
+  border: 1px solid #e5e7eb;
 
   font-size: 1.4rem;
   background-color: var(--color-grey-0);
@@ -19,8 +19,8 @@ const TableHeader = styled.header`
   column-gap: 2.4rem;
   align-items: center;
 
-  background-color: var(--color-grey-50);
-  border-bottom: 1px solid var(--color-grey-100);
+  background-color: #f9fafb;
+  border-bottom: 1px solid #f3f4f6;
   text-transform: uppercase;
   letter-spacing: 0.4px;
   font-weight: 600;

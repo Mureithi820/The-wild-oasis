@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { formatCurrency } from "../../utils/helpers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteCabin } from "../../services/apiCabins";
+import toast from "react-hot-toast";
 
 const TableRow = styled.div`
   display: grid;
@@ -16,14 +17,14 @@ const TableRow = styled.div`
   }
 `;
 
-// const Img = styled.img`
-//   display: block;
-//   width: 6.4rem;
-//   aspect-ratio: 3 / 2;
-//   object-fit: cover;
-//   object-position: center;
-//   transform: scale(1.5) translateX(-7px);
-// `;
+const Img = styled.img`
+  display: block;
+  width: 6.4rem;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.5) translateX(-7px);
+`;
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -40,7 +41,7 @@ const Price = styled.div`
 const Discount = styled.div`
   font-family: "Sono";
   font-weight: 500;
-  color: var(--color-green-700);
+  color: #15803d;
 `;
 
 function CabinRow({ cabin }) {
@@ -58,17 +59,18 @@ function CabinRow({ cabin }) {
   const { isLoading: isDeleting, mutate } = useMutation({
     mutationFn: deleteCabin,
     onSuccess: () => {
-      alert("Cabin successfully deleted");
+      toast.success("Cabin successfully deleted");
+
       queryClient.invalidateQueries({
         queryKey: ["cabins"],
       });
     },
-    onError: (err) => alert(err.message),
+    onError: (err) => toast.error(err.message),
   });
 
   return (
     <TableRow role="row">
-      <img src={image} />
+      <Img src={image} />
       <Cabin>{name}</Cabin>
       <div>Fits up to {maxCapacity} guests</div>
       <Price>{formatCurrency(regularPrice)}</Price>
@@ -85,8 +87,8 @@ CabinRow.propTypes = {
     maxCapacity: PropTypes.number.isRequired,
     regularPrice: PropTypes.number.isRequired,
     discount: PropTypes.number.isRequired,
-    image: PropTypes.string.isRequired,
-    id: PropTypes.string.isRequired,
+    image: PropTypes.string,
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   }).isRequired,
 };
 
