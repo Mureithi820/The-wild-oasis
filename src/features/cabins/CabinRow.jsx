@@ -10,7 +10,6 @@ import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
-// import Button from "../../ui/Button";
 
 const Img = styled.img`
   display: block;
@@ -24,7 +23,7 @@ const Img = styled.img`
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
-  color: var(--color-grey-600);
+  color: #4b5563;
   font-family: "Sono";
 `;
 
