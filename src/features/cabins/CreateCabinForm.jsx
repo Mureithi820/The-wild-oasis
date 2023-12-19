@@ -182,6 +182,6 @@ CreateCabinForm.propTypes = {
     name: PropTypes.string,
     description: PropTypes.string,
   }),
-  onCloseModal: PropTypes.func.isRequired,
+  onCloseModal: PropTypes.func,
 };
 export default CreateCabinForm;
