@@ -63,13 +63,6 @@ const Empty = styled.p`
 `;
 
 const TableContext = createContext();
-function Table({ columns, children }) {
-  return (
-    <TableContext.Provider value={{ columns }}>
-      <StyledTable role="table">{children}</StyledTable>
-    </TableContext.Provider>
-  );
-}
 // function Table({ columns, children }) {
 //   return (
 //     <TableContext.Provider value={{ columns }}>
@@ -77,10 +70,31 @@ function Table({ columns, children }) {
 //     </TableContext.Provider>
 //   );
 // }
+// function Table({ columns, children }) {
+//   return (
+//     <TableContext.Provider value={{ columns }}>
+//       <StyledTable role="table">{children}</StyledTable>
+//     </TableContext.Provider>
+//   );
+// }
+function Table({ columns = [], children }) {
+  if (!Array.isArray(columns)) {
+    console.error('Table component: "columns" prop must be an array.');
+    columns = [];
+  }
+
+  return (
+    <TableContext.Provider value={{ columns }}>
+      <StyledTable role="table">{children}</StyledTable>
+    </TableContext.Provider>
+  );
+}
+
 Table.propTypes = {
-  columns: PropTypes.array.isRequired,
+  columns: PropTypes.array,
   children: PropTypes.node.isRequired,
 };
+
 export default Table;
 
 function Header({ children }) {
