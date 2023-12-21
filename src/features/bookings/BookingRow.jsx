@@ -37,36 +37,51 @@ const Amount = styled.div`
 `;
 function BookingRow({
   booking: {
-    // id: bookingId,
-    // created_at,
     startDate,
     endDate,
     numNights,
-    // numGuests,
     totalPrice,
     status,
-    guests: { fullName: guestName, email },
-    cabins: { name: cabinName },
+    guests,
+    cabins,
   },
 }) {
+  // const guestName = guests?.fullName || "Guest Name N/A";
+  // const email = guests?.email || "Email N/A";
+  // const cabinName = cabins?.name || "Cabin Name N/A";
+
+  const { fullName = "Guest Name N/A", email = "Email N/A" } = guests || {};
+  const { name: cabinName = "Cabin Name N/A" } = cabins || {};
+
   // const statusToTagName = {
   //   unconfirmed: "#0369a1",
   //   "checked-in": "#008000",
   //   "checked-out": "#c0c0c0",
   // };
   const statusToTagColors = {
-    unconfirmed: { textColor: "#0369a1", backgroundColor: "#f3f4f6" },
-    "checked-in": { textColor: "#00a859", backgroundColor: "#e8f7f3" },
-    "checked-out": { textColor: "#757575", backgroundColor: "#f3f4f6" },
+    unconfirmed: { textColor: "#0369a1", backgroundColor: "#e0f2fe" },
+    "checked-in": { textColor: "#008000", backgroundColor: " #dcfce7" },
+    "checked-out": { textColor: "#374151", backgroundColor: "#e5e7eb" },
   };
 
   const tagColors = statusToTagColors[status] || {};
+
+  const tagStyle = {
+    textTransform: "uppercase",
+    fontSize: "1.1rem",
+    fontWeight: 600,
+    padding: "0.4rem 1.2rem",
+    borderRadius: "100px",
+    color: tagColors.textColor || "inherit",
+    backgroundColor: tagColors.backgroundColor || "inherit",
+  };
+
   return (
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
 
       <Stacked>
-        <span>{guestName}</span>
+        <span>{fullName}</span>
         <span>{email}</span>
       </Stacked>
 
@@ -83,10 +98,9 @@ function BookingRow({
         </span>
       </Stacked>
 
-      {/* <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag> */}
-      <Tag type={status} {...tagColors}>
-        {status.replace("-", " ")}
-      </Tag>
+      {/* <Tag type={tagColors[status]}>{status.replace("-", " ")}</Tag> */}
+      <Tag style={tagStyle}>{status.replace("-", " ")}</Tag>
+
       <Amount>{formatCurrency(totalPrice)}</Amount>
     </Table.Row>
   );
@@ -98,17 +112,13 @@ BookingRow.propTypes = {
     startDate: PropTypes.string.isRequired,
     endDate: PropTypes.string.isRequired,
     numNights: PropTypes.number.isRequired,
-    numGuests: PropTypes.number.isRequired,
+    numGuests: PropTypes.number,
     totalPrice: PropTypes.number.isRequired,
     status: PropTypes.oneOf(["unconfirmed", "checked-in", "checked-out"])
       .isRequired,
-    guests: PropTypes.shape({
-      fullName: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-    }).isRequired,
-    cabins: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }).isRequired,
+
+    guests: PropTypes.object,
+    cabins: PropTypes.object,
   }).isRequired,
 };
 

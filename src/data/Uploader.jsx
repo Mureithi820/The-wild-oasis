@@ -88,8 +88,12 @@ async function createBookings() {
       cabinPrice,
       extrasPrice,
       totalPrice,
-      guestId: allGuestIds.at(booking.guestId - 1),
-      cabinId: allCabinIds.at(booking.cabinId - 1),
+      // guestId: allGuestIds.at(booking.guestId - 1),
+      guestId: allGuestIds[booking.guestId - 1], // Adjust index here
+      cabinId: allCabinIds[booking.cabinId - 1],
+
+      // cabinId: allCabinIds.at(booking.cabinId - 1),
+
       status,
     };
   });
@@ -99,6 +103,58 @@ async function createBookings() {
   const { error } = await supabase.from("bookings").insert(finalBookings);
   if (error) console.log(error.message);
 }
+// async function createBookings() {
+//   const { data: guestsData } = await supabase.from("guests").select("*");
+//   const { data: cabinsData } = await supabase.from("cabins").select("*");
+
+//   const guestMap = new Map(guestsData.map((guest) => [guest.name, guest.id]));
+//   const cabinMap = new Map(cabinsData.map((cabin) => [cabin.name, cabin.id]));
+
+//   const finalBookings = bookings.map((booking) => {
+//     const cabin = cabins.find((c) => c.id === booking.cabinId);
+//     const numNights = subtractDates(booking.endDate, booking.startDate);
+//     const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
+//     const extrasPrice = booking.hasBreakfast
+//       ? numNights * 15 * booking.numGuests
+//       : 0;
+//     const totalPrice = cabinPrice + extrasPrice;
+
+//     let status;
+//     if (
+//       isPast(new Date(booking.endDate)) &&
+//       !isToday(new Date(booking.endDate))
+//     )
+//       status = "checked-out";
+//     if (
+//       isFuture(new Date(booking.startDate)) ||
+//       isToday(new Date(booking.startDate))
+//     )
+//       status = "unconfirmed";
+//     if (
+//       (isFuture(new Date(booking.endDate)) ||
+//         isToday(new Date(booking.endDate))) &&
+//       isPast(new Date(booking.startDate)) &&
+//       !isToday(new Date(booking.startDate))
+//     )
+//       status = "checked-in";
+
+//     return {
+//       ...booking,
+//       numNights,
+//       cabinPrice,
+//       extrasPrice,
+//       totalPrice,
+//       guestId: guestMap.get(booking.guestName), // Assuming you have a guestName property in bookings
+//       cabinId: cabinMap.get(cabin.name),
+//       status,
+//     };
+//   });
+
+//   console.log(finalBookings);
+
+//   const { error } = await supabase.from("bookings").insert(finalBookings);
+//   if (error) console.log(error.message);
+// }
 
 function Uploader() {
   const [isLoading, setIsLoading] = useState(false);
