@@ -15,15 +15,15 @@ import { formatDistanceFromNow, formatCurrency } from "../../utils/helpers";
 
 const StyledBookingDataBox = styled.section`
   /* Box */
-  background-color: var(--color-grey-0);
-  border: 1px solid var(--color-grey-100);
-  border-radius: var(--border-radius-md);
+  background-color: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 7px;
 
   overflow: hidden;
 `;
 
 const Header = styled.header`
-  background-color: var(--color-brand-500);
+  background-color: #6366f1;
   padding: 2rem 4rem;
   color: #e0e7ff;
   font-size: 1.8rem;
@@ -61,11 +61,11 @@ const Guest = styled.div`
   align-items: center;
   gap: 1.2rem;
   margin-bottom: 1.6rem;
-  color: var(--color-grey-500);
+  color: #6b7280;
 
   & p:first-of-type {
     font-weight: 500;
-    color: var(--color-grey-700);
+    color: #374151;
   }
 `;
 
@@ -74,13 +74,11 @@ const Price = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 1.6rem 3.2rem;
-  border-radius: var(--border-radius-sm);
+  border-radius: 5px;
   margin-top: 2.4rem;
 
-  background-color: ${(props) =>
-    props.isPaid ? "var(--color-green-100)" : "var(--color-yellow-100)"};
-  color: ${(props) =>
-    props.isPaid ? "var(--color-green-700)" : "var(--color-yellow-700)"};
+  background-color: ${(props) => (props.isPaid ? "#dcfce7" : "#fef9c3")};
+  color: ${(props) => (props.isPaid ? " #15803d" : " #a16207")};
 
   & p:last-child {
     text-transform: uppercase;
@@ -98,7 +96,7 @@ const Price = styled.div`
 const Footer = styled.footer`
   padding: 1.6rem 4rem;
   font-size: 1.2rem;
-  color: var(--color-grey-500);
+  color: #6b7280;
   text-align: right;
 `;
 

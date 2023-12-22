@@ -8,6 +8,9 @@ import Table from "../../ui/Table";
 
 import { formatCurrency } from "../../utils/helpers";
 import { formatDistanceFromNow } from "../../utils/helpers";
+import Menus from "../../ui/Menus";
+import { HiArrowDownOnSquare, HiEye } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -37,6 +40,7 @@ const Amount = styled.div`
 `;
 function BookingRow({
   booking: {
+    id: bookingId,
     startDate,
     endDate,
     numNights,
@@ -46,23 +50,15 @@ function BookingRow({
     cabins,
   },
 }) {
-  // const guestName = guests?.fullName || "Guest Name N/A";
-  // const email = guests?.email || "Email N/A";
-  // const cabinName = cabins?.name || "Cabin Name N/A";
-
   const { fullName = "Guest Name N/A", email = "Email N/A" } = guests || {};
   const { name: cabinName = "Cabin Name N/A" } = cabins || {};
 
-  // const statusToTagName = {
-  //   unconfirmed: "#0369a1",
-  //   "checked-in": "#008000",
-  //   "checked-out": "#c0c0c0",
-  // };
   const statusToTagColors = {
     unconfirmed: { textColor: "#0369a1", backgroundColor: "#e0f2fe" },
     "checked-in": { textColor: "#008000", backgroundColor: " #dcfce7" },
     "checked-out": { textColor: "#374151", backgroundColor: "#e5e7eb" },
   };
+  const navigate = useNavigate();
 
   const tagColors = statusToTagColors[status] || {};
 
@@ -102,6 +98,26 @@ function BookingRow({
       <Tag style={tagStyle}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+
+      <Menus.Menu>
+        <Menus.Toggle id={bookingId} />
+        <Menus.List id={bookingId}>
+          <Menus.Button
+            icon={<HiEye />}
+            onClick={() => navigate(`/bookings/${bookingId}`)}
+          >
+            See Details
+          </Menus.Button>
+          {status === "unconfirmed" && (
+            <Menus.Button
+              icon={<HiArrowDownOnSquare />}
+              onClick={() => navigate(`/checkin/${bookingId}`)}
+            >
+              Check In
+            </Menus.Button>
+          )}
+        </Menus.List>
+      </Menus.Menu>
     </Table.Row>
   );
 }

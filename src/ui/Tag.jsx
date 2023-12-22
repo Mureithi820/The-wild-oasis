@@ -9,21 +9,8 @@ const Tag = styled.span`
   border-radius: 100px;
 
   /* Make these dynamic, based on the received prop */
-  /* Use dynamic class names based on the received prop */
-  &.unconfirmed {
-    color: ${(props) => props.textColor || "#0369a1"};
-    background-color: ${(props) => props.backgroundColor || "#f3f4f6"};
-  }
-
-  &.checked-in {
-    color: ${(props) => props.textColor || "#00a859"};
-    background-color: ${(props) => props.backgroundColor || "#e8f7f3"};
-  }
-
-  &.checked-out {
-    color: ${(props) => props.textColor || "#757575"};
-    background-color: ${(props) => props.backgroundColor || "#f3f4f6"};
-  }
+  color: ${(props) => props.textColor || "inherit"};
+  background-color: ${(props) => props.backgroundColor || "inherit"};
 `;
 
 export default Tag;

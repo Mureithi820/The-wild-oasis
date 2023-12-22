@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const StyledDataItem = styled.div`
@@ -16,7 +17,7 @@ const Label = styled.span`
   & svg {
     width: 2rem;
     height: 2rem;
-    color: var(--color-brand-600);
+    color: #4f46e5;
   }
 `;
 
@@ -31,5 +32,9 @@ function DataItem({ icon, label, children }) {
     </StyledDataItem>
   );
 }
-
+DataItem.propTypes = {
+  icon: PropTypes.element.isRequired, // Assuming icon is a React element
+  label: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
 export default DataItem;
