@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import styled from "styled-components";
 
 const StyledCheckbox = styled.div`
@@ -9,11 +10,11 @@ const StyledCheckbox = styled.div`
     width: 2.4rem;
     outline-offset: 2px;
     transform-origin: 0;
-    accent-color: var(--color-brand-600);
+    accent-color: #4f46e5;
   }
 
   & input[type="checkbox"]:disabled {
-    accent-color: var(--color-brand-600);
+    accent-color: #4f46e5;
   }
 
   & label {
@@ -39,5 +40,11 @@ function Checkbox({ checked, onChange, disabled = false, id, children }) {
     </StyledCheckbox>
   );
 }
-
+Checkbox.propTypes = {
+  checked: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+};
 export default Checkbox;
