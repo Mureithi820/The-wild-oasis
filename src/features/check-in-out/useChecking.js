@@ -16,7 +16,7 @@ export function useCheckin() {
         hasBreakfast,
         extrasPrice,
         totalPrice
-      ), // Corrected: Pass parameters individually
+      ),
     onSuccess: (data) => {
       toast.success(`Booking #${data.id} successfully checked in`);
       queryClient.invalidateQueries({ active: true });
