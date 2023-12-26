@@ -30,6 +30,7 @@ function CheckinBooking() {
   const { booking, isLoading } = useBooking();
 
   const { settings, isLoading: isLoadingSettings } = useSettings();
+
   useEffect(() => {
     setConfirmPaid(booking?.isPaid ?? false);
   }, [booking?.isPaid]);
@@ -51,50 +52,60 @@ function CheckinBooking() {
   const optionalBreakfastPrice =
     settings.breakfastPrice * numNights * numGuests;
 
+  function handleCheckin() {
+    if (!confirmPaid) return;
+
+    if (addBreakfast) {
+      checkin({
+        bookingId,
+        breakfast: {
+          hasBreakfast: true,
+          extrasPrice: optionalBreakfastPrice,
+          totalPrice: totalPrice + optionalBreakfastPrice,
+        },
+      });
+    } else {
+      checkin({ bookingId, breakfast: {} });
+    }
+  }
+
+  
   // function handleCheckin() {
   //   if (!confirmPaid) return;
 
   //   if (addBreakfast) {
-  //     checkin({
-  //       bookingId,
-  //       breakfast: {
-  //         hasBreakfast: true,
-  //         extrasPrice: optionalBreakfastPrice,
-  //         totalPrice: totalPrice + optionalBreakfastPrice,
-  //       },
+  //     checkin(bookingId, {
+  //       hasBreakfast: true,
+  //       extrasPrice: optionalBreakfastPrice,
+  //       totalPrice: totalPrice + optionalBreakfastPrice,
   //     });
   //   } else {
-  //     checkin({ bookingId, breakfast: {} });
+  //     checkin(bookingId, {});
   //   }
   // }
-  function handleCheckin() {
-    if (!confirmPaid) return;
 
-    const breakfastData = addBreakfast
-      ? {
-          hasBreakfast: true,
-          extrasPrice: optionalBreakfastPrice,
-          totalPrice: totalPrice + optionalBreakfastPrice,
-        }
-      : {
-          hasBreakfast: false,
-        };
+  // function handleCheckin() {
+  //   if (!confirmPaid) return;
 
-    console.log("Original breakfastData:", breakfastData);
+  //   const updatedBooking = {
+  //     status: "checked-in",
+  //     isPaid: true,
+  //     breakfast: addBreakfast
+  //       ? {
+  //           hasBreakfast: true,
+  //           extrasPrice: optionalBreakfastPrice,
+  //           totalPrice: totalPrice + optionalBreakfastPrice,
+  //         }
+  //       : undefined,
+  //   };
 
-    // Ensure that hasBreakfast is always a boolean before calling checkin
-    const sanitizedBreakfastData = {
-      ...breakfastData,
-      hasBreakfast: !!breakfastData.hasBreakfast,
-    };
-
-    console.log("Sanitized breakfastData:", sanitizedBreakfastData);
-
-    checkin({
-      bookingId,
-      breakfast: sanitizedBreakfastData,
-    });
-  }
+  //   checkin(
+  //     bookingId,
+  //     updatedBooking.status,
+  //     updatedBooking.isPaid,
+  //     updatedBooking.breakfast
+  //   );
+  // }
 
   return (
     <>

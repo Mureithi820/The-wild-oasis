@@ -124,10 +124,25 @@ export async function getStaysTodayActivity() {
 //   }
 //   return data;
 // }
-// export async function updateBooking(id, obj) {
+export async function updateBooking(id, obj) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .update({ ...obj })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be updated");
+  }
+  return data;
+}
+
+// export async function updateBooking(id, updates) {
 //   const { data, error } = await supabase
 //     .from("bookings")
-//     .update(obj)
+//     .update(updates) // Pass the updates directly
 //     .eq("id", id)
 //     .select()
 //     .single();
@@ -138,37 +153,6 @@ export async function getStaysTodayActivity() {
 //   }
 //   return data;
 // }
-export async function updateBooking(id, obj) {
-  // Ensure hasBreakfast is cast to boolean
-  const hasBreakfast = Boolean(obj.hasBreakfast);
-
-  // Convert bigintField to BigInt only if it is defined
-  const bigintField =
-    obj.bigintField !== undefined ? BigInt(obj.bigintField) : undefined;
-
-  // Remove bigintField from the object if it's undefined
-  const updateObject = {
-    ...obj,
-    hasBreakfast: hasBreakfast,
-  };
-
-  if (bigintField !== undefined) {
-    updateObject.bigintField = bigintField;
-  }
-
-  const { data, error } = await supabase
-    .from("bookings")
-    .update(updateObject)
-    .eq("id", id)
-    .single();
-
-  if (error) {
-    console.error(error);
-    throw new Error("Booking could not be updated");
-  }
-
-  return data;
-}
 
 export async function deleteBooking(id) {
   // REMEMBER RLS POLICIES
