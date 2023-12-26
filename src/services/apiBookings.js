@@ -107,27 +107,23 @@ export async function getStaysTodayActivity() {
   return data;
 }
 
-// export async function updateBooking(id, obj) {
-//   const { data, error } = await supabase
-//     .from("bookings")
-//     .update({
-//       status: obj.status || null,
-//       hasBreakfast: obj.hasBreakfast || false,
-//     })
-//     .eq("id", id)
-//     // .select()
-//     .single();
-
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Booking could not be updated");
-//   }
-//   return data;
-// }
-export async function updateBooking(id, obj) {
+export async function updateBooking(
+  id,
+  status,
+  isPaid,
+  hasBreakfast,
+  extrasPrice,
+  totalPrice
+) {
   const { data, error } = await supabase
     .from("bookings")
-    .update({ ...obj })
+    .update({
+      status: status,
+      isPaid: isPaid,
+      hasBreakfast: hasBreakfast,
+      extrasPrice: extrasPrice,
+      totalPrice: totalPrice,
+    })
     .eq("id", id)
     .select()
     .single();
@@ -136,6 +132,7 @@ export async function updateBooking(id, obj) {
     console.error(error);
     throw new Error("Booking could not be updated");
   }
+
   return data;
 }
 

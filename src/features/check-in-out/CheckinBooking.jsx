@@ -15,12 +15,13 @@ import { useEffect, useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import { useCheckin } from "./useChecking";
 import { useSettings } from "../settings/useSettings";
+import { updateBooking } from "../../services/apiBookings";
 
 const Box = styled.div`
   /* Box */
-  background-color: var(--color-grey-0);
-  border: 1px solid var(--color-grey-100);
-  border-radius: var(--border-radius-md);
+  background-color: #fff;
+  border: 1px solid #f3f4f6;
+  border-radius: 7px;
   padding: 2.4rem 4rem;
 `;
 
@@ -52,60 +53,49 @@ function CheckinBooking() {
   const optionalBreakfastPrice =
     settings.breakfastPrice * numNights * numGuests;
 
-  function handleCheckin() {
+  async function handleCheckin() {
     if (!confirmPaid) return;
 
-    if (addBreakfast) {
-      checkin({
+    // Ensure optionalBreakfastPrice is a valid real value
+    const breakfastExtrasPrice = parseFloat(optionalBreakfastPrice);
+    if (isNaN(breakfastExtrasPrice)) {
+      console.error("Invalid value for optionalBreakfastPrice");
+      return;
+    }
+
+    // Ensure totalPrice is a valid real value
+    const totalBookingPrice = parseFloat(totalPrice);
+    if (isNaN(totalBookingPrice)) {
+      console.error("Invalid value for totalPrice");
+      return;
+    }
+
+    try {
+      if (addBreakfast) {
+        await updateBooking(
+          bookingId,
+          "checked-in",
+          true,
+          addBreakfast,
+          breakfastExtrasPrice,
+          totalBookingPrice + breakfastExtrasPrice
+        );
+      } else {
+        await updateBooking(bookingId, true, false, 0, totalBookingPrice);
+      }
+
+      // Use the checkin mutation from useCheckin
+      await checkin({
         bookingId,
-        breakfast: {
-          hasBreakfast: true,
-          extrasPrice: optionalBreakfastPrice,
-          totalPrice: totalPrice + optionalBreakfastPrice,
-        },
+        hasBreakfast: addBreakfast,
+        extrasPrice: addBreakfast ? breakfastExtrasPrice : 0,
+        totalPrice:
+          totalBookingPrice + (addBreakfast ? breakfastExtrasPrice : 0),
       });
-    } else {
-      checkin({ bookingId, breakfast: {} });
+    } catch (error) {
+      console.error(error.message);
     }
   }
-
-  
-  // function handleCheckin() {
-  //   if (!confirmPaid) return;
-
-  //   if (addBreakfast) {
-  //     checkin(bookingId, {
-  //       hasBreakfast: true,
-  //       extrasPrice: optionalBreakfastPrice,
-  //       totalPrice: totalPrice + optionalBreakfastPrice,
-  //     });
-  //   } else {
-  //     checkin(bookingId, {});
-  //   }
-  // }
-
-  // function handleCheckin() {
-  //   if (!confirmPaid) return;
-
-  //   const updatedBooking = {
-  //     status: "checked-in",
-  //     isPaid: true,
-  //     breakfast: addBreakfast
-  //       ? {
-  //           hasBreakfast: true,
-  //           extrasPrice: optionalBreakfastPrice,
-  //           totalPrice: totalPrice + optionalBreakfastPrice,
-  //         }
-  //       : undefined,
-  //   };
-
-  //   checkin(
-  //     bookingId,
-  //     updatedBooking.status,
-  //     updatedBooking.isPaid,
-  //     updatedBooking.breakfast
-  //   );
-  // }
 
   return (
     <>
