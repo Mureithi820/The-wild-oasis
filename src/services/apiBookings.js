@@ -136,21 +136,6 @@ export async function updateBooking(
   return data;
 }
 
-// export async function updateBooking(id, updates) {
-//   const { data, error } = await supabase
-//     .from("bookings")
-//     .update(updates) // Pass the updates directly
-//     .eq("id", id)
-//     .select()
-//     .single();
-
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Booking could not be updated");
-//   }
-//   return data;
-// }
-
 export async function deleteBooking(id) {
   // REMEMBER RLS POLICIES
   const { data, error } = await supabase.from("bookings").delete().eq("id", id);
