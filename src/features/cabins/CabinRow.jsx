@@ -10,7 +10,6 @@ import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Table from "../../ui/Table";
 import Menus from "../../ui/Menus";
-
 const Img = styled.img`
   display: block;
   width: 6.4rem;
@@ -23,7 +22,7 @@ const Img = styled.img`
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
-  color: #4b5563;
+  color: var(--color-grey-600);
   font-family: "Sono";
 `;
 
@@ -35,7 +34,7 @@ const Price = styled.div`
 const Discount = styled.div`
   font-family: "Sono";
   font-weight: 500;
-  color: #15803d;
+  color: var(--color-green-700);
 `;
 
 function CabinRow({ cabin }) {

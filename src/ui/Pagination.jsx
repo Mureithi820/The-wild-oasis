@@ -26,10 +26,11 @@ const Buttons = styled.div`
 `;
 
 const PaginationButton = styled.button`
-  background-color: ${(props) => (props.active ? " #4f46e5" : " #eef2ff")};
-  color: ${(props) => (props.active ? "  #eef2ff" : "inherit")};
+  background-color: ${(props) =>
+    props.active ? " var(--color-brand-600)" : "var(--color-grey-50)"};
+  color: ${(props) => (props.active ? " var(--color-brand-50)" : "inherit")};
   border: none;
-  border-radius: 5px;
+  border-radius: var(--border-radius-sm);
   font-weight: 500;
   font-size: 1.4rem;
 
@@ -54,8 +55,8 @@ const PaginationButton = styled.button`
   }
 
   &:hover:not(:disabled) {
-    background-color: #4f46e5;
-    color: #eef2ff;
+    background-color: var(--color-brand-600);
+    color: var(--color-brand-50);
   }
 `;
 

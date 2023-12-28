@@ -5,7 +5,6 @@ import { createPortal } from "react-dom";
 import { HiEllipsisVertical } from "react-icons/hi2";
 import styled from "styled-components";
 import { useOutsideClick } from "../hooks/useOutsideClick";
-
 const Menu = styled.div`
   display: flex;
   align-items: center;
@@ -16,27 +15,27 @@ const StyledToggle = styled.button`
   background: none;
   border: none;
   padding: 0.4rem;
-  border-radius: 5px;
+  border-radius: var(--border-radius-sm);
   transform: translateX(0.8rem);
   transition: all 0.2s;
 
   &:hover {
-    background-color: #f3f4f6;
+    background-color: var(--color-grey-100);
   }
 
   & svg {
     width: 2.4rem;
     height: 2.4rem;
-    color: #374151;
+    color: var(--color-grey-700);
   }
 `;
 
 const StyledList = styled.ul`
   position: fixed;
 
-  background-color: #fff;
-  box-shadow: 0px 0.6rem 2.4rem rgba(0, 0, 0, 0.06);
-  border-radius: 7px;
+  background-color: var(--color-grey-0);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-md);
 
   right: ${(props) => props.position.x}px;
   top: ${(props) => props.position.y}px;
@@ -56,13 +55,13 @@ const StyledButton = styled.button`
   gap: 1.6rem;
 
   &:hover {
-    background-color: #f9fafb;
+    background-color: var(--color-grey-50);
   }
 
   & svg {
     width: 1.6rem;
     height: 1.6rem;
-    color: #9ca3af;
+    color: var(--color-grey-400);
     transition: all 0.3s;
   }
 `;

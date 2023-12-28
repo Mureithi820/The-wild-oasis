@@ -2,22 +2,22 @@ import styled from "styled-components";
 
 const FileInput = styled.input.attrs({ type: "file" })`
   font-size: 1.4rem;
-  border-radius: 5px;
+  border-radius: var(--border-radius-sm);
 
   &::file-selector-button {
     font: inherit;
     font-weight: 500;
     padding: 0.8rem 1.2rem;
     margin-right: 1.2rem;
-    border-radius: 5px;
+    border-radius: var(--border-radius-sm);
     border: none;
-    color: #eef2ff;
-    background-color: #4f46e5;
+    color: var(--color-brand-50);
+    background-color: var(--color-brand-600);
     cursor: pointer;
     transition: color 0.2s, background-color 0.2s;
 
     &:hover {
-      background-color: #4338ca;
+      background-color: var(--color-brand-700);
     }
   }
 `;

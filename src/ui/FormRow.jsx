@@ -18,7 +18,7 @@ const StyledFormRow = styled.div`
   }
 
   &:not(:last-child) {
-    border-bottom: 1px solid#f3f4f6;
+    border-bottom: 1px solid var(--color-grey-100);
   }
 
   &:has(button) {
@@ -34,7 +34,7 @@ const Label = styled.label`
 
 const Error = styled.span`
   font-size: 1.4rem;
-  color: #b91c1c;
+  color: var(--color-red-700);
 `;
 function FormRow({ label, error, children }) {
   return (

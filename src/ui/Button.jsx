@@ -22,36 +22,36 @@ const sizes = {
 
 const variations = {
   primary: css`
-    color: #eef2ff;
-    background-color: #4f46e5;
+    color: var(--color-brand-50);
+    background-color: var(--color-brand-600);
 
     &:hover {
-      background-color: #4338ca;
+      background-color: var(--color-brand-700);
     }
   `,
   secondary: css`
-    color: #4b5563;
-    background: #fff;
-    border: 1px solid #e5e7eb;
+    color: var(--color-grey-600);
+    background: var(--color-grey-0);
+    border: 1px solid var(--color-grey-200);
 
     &:hover {
-      background-color: #f9fafb;
+      background-color: var(--color-grey-50);
     }
   `,
   danger: css`
-    color: #fee2e2;
-    background-color: #b91c1c;
+    color: var(--color-red-100);
+    background-color: var(--color-red-700);
 
     &:hover {
-      background-color: #991b1b;
+      background-color: var(--color-red-800);
     }
   `,
 };
 
 const Button = styled.button`
   border: none;
-  border-radius: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  border-radius: var(--border-radius-sm);
+  box-shadow: var(--shadow-sm);
 
   ${(props) => sizes[props.size]}
   ${(props) => variations[props.variation]}

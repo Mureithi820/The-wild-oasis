@@ -10,11 +10,11 @@ const StyledCheckbox = styled.div`
     width: 2.4rem;
     outline-offset: 2px;
     transform-origin: 0;
-    accent-color: #4f46e5;
+    accent-color: var(--color-brand-600);
   }
 
   & input[type="checkbox"]:disabled {
-    accent-color: #4f46e5;
+    accent-color: var(--color-brand-600);
   }
 
   & label {

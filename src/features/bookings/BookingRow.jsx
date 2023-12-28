@@ -23,7 +23,7 @@ import { useDeleteBooking } from "./useDeleteBookings";
 const Cabin = styled.div`
   font-size: 1.6rem;
   font-weight: 600;
-  color: #4b5563;
+  color: var(--color-grey-600);
   font-family: "Sono";
 `;
 
@@ -37,7 +37,7 @@ const Stacked = styled.div`
   }
 
   & span:last-child {
-    color: #6b7280;
+    color: var(--color-grey-500);
     font-size: 1.2rem;
   }
 `;
@@ -61,36 +61,27 @@ function BookingRow({
   const { fullName = "Guest Name N/A", email = "Email N/A" } = guests || {};
   const { name: cabinName = "Cabin Name N/A" } = cabins || {};
 
-  const statusToTagColors = {
-    unconfirmed: { textColor: "#0369a1", backgroundColor: "#e0f2fe" },
-    "checked-in": { textColor: "#008000", backgroundColor: " #dcfce7" },
-    "checked-out": { textColor: "#374151", backgroundColor: "#e5e7eb" },
+  // const statusToTagColors = {
+  //   unconfirmed: { textColor: "#0369a1", backgroundColor: "#e0f2fe" },
+  //   "checked-in": { textColor: "#008000", backgroundColor: " #dcfce7" },
+  //   "checked-out": { textColor: "#374151", backgroundColor: "#e5e7eb" },
+  // };
+  const statusToTagName = {
+    unconfirmed: "blue",
+    "checked-in": "green",
+    "checked-out": "silver",
   };
   const navigate = useNavigate();
   const { checkout, isCheckingout } = useCheckout();
   const { deleteBooking, isDeleting } = useDeleteBooking();
 
-  const tagColors = statusToTagColors[status] || {};
-
-  const tagStyle = {
-    textTransform: "uppercase",
-    fontSize: "1.1rem",
-    fontWeight: 600,
-    padding: "0.4rem 1.2rem",
-    borderRadius: "100px",
-    color: tagColors.textColor || "inherit",
-    backgroundColor: tagColors.backgroundColor || "inherit",
-  };
-
   return (
     <Table.Row>
       <Cabin>{cabinName}</Cabin>
-
       <Stacked>
         <span>{fullName}</span>
         <span>{email}</span>
       </Stacked>
-
       <Stacked>
         <span>
           {isToday(new Date(startDate))
@@ -104,9 +95,7 @@ function BookingRow({
         </span>
       </Stacked>
 
-      {/* <Tag type={tagColors[status]}>{status.replace("-", " ")}</Tag> */}
-      <Tag style={tagStyle}>{status.replace("-", " ")}</Tag>
-
+      <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
       <Amount>{formatCurrency(totalPrice)}</Amount>
       <Modal>
         <Menus.Menu>

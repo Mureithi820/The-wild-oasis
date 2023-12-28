@@ -35,26 +35,19 @@ function BookingDetail() {
 
   const { status, id: bookingId } = booking;
 
-  // const statusToTagName = {
-  //   unconfirmed: "blue",
-  //   "checked-in": "green",
-  //   "checked-out": "silver",
-  // };
   const statusToTagName = {
-    unconfirmed: { textColor: "#0369a1", backgroundColor: "#e0f2fe" },
-    "checked-in": { textColor: "#008000", backgroundColor: " #dcfce7" },
-    "checked-out": { textColor: "#374151", backgroundColor: "#e5e7eb" },
+    unconfirmed: "blue",
+    "checked-in": "green",
+    "checked-out": "silver",
   };
 
-  const { textColor, backgroundColor } = statusToTagName[status] || {};
   return (
     <>
       <Row type="horizontal">
         <HeadingGroup>
           <Heading as="h1">Booking #{bookingId}</Heading>
-          <Tag textColor={textColor} backgroundColor={backgroundColor}>
-            {status.replace("-", " ")}
-          </Tag>
+
+          <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
