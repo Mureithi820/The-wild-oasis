@@ -4,7 +4,7 @@ import { createContext, useEffect } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
 // import { useDarkMode } from "./useDarkMode";
 
-const DarkModeContext = createContext();
+const DarkmodeContext = createContext();
 
 function DarkmodeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useLocalStorageState(
@@ -30,9 +30,9 @@ function DarkmodeProvider({ children }) {
   }
 
   return (
-    <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
+    <DarkmodeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
       {children}
-    </DarkModeContext.Provider>
+    </DarkmodeContext.Provider>
   );
 }
 DarkmodeProvider.propTypes = {
@@ -45,4 +45,4 @@ DarkmodeProvider.propTypes = {
 //     throw new Error("Dark mode coxtext was used outside darkmode provider");
 //   return context;
 // }
-export { DarkmodeProvider, DarkModeContext };
+export { DarkmodeProvider, DarkmodeContext };
