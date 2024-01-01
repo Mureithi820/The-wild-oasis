@@ -6,7 +6,7 @@ import { useLocalStorageState } from "../hooks/useLocalStorageState";
 
 const DarkModeContext = createContext();
 
-function DarkModeProvider({ children }) {
+function DarkmodeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useLocalStorageState(
     window.matchMedia("(prefers-color-scheme: dark)").matches,
     "isDarkMode"
@@ -35,7 +35,7 @@ function DarkModeProvider({ children }) {
     </DarkModeContext.Provider>
   );
 }
-DarkModeProvider.propTypes = {
+DarkmodeProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
@@ -45,4 +45,4 @@ DarkModeProvider.propTypes = {
 //     throw new Error("Dark mode coxtext was used outside darkmode provider");
 //   return context;
 // }
-export { DarkModeProvider, DarkModeContext };
+export { DarkmodeProvider, DarkModeContext };
