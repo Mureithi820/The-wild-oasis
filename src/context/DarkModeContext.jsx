@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 
-import { createContext, useContext, useEffect } from "react";
+import { createContext, useEffect } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
+// import { useDarkMode } from "./useDarkMode";
 
 const DarkModeContext = createContext();
 
@@ -38,10 +39,10 @@ DarkModeProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-function useDarkMode() {
-  const context = useContext(DarkModeContext);
-  if (context === undefined)
-    throw new Error("Dark mode coxtext was used outside darkmode provider");
-  return context;
-}
-export { DarkModeProvider, useDarkMode };
+// function useDarkMode() {
+//   const context = useContext(DarkModeContext);
+//   if (context === undefined)
+//     throw new Error("Dark mode coxtext was used outside darkmode provider");
+//   return context;
+// }
+export { DarkModeProvider, DarkModeContext };
